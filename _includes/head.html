@@ -1,0 +1,84 @@
+<!--
+ *     ____    __                                   ______
+ *    /\  _`\ /\ \                                 /\__  _\                   __
+ *    \ \,\L\_\ \ \___      __    _ __  _____     _\/_/\ \/ _ __  ___    ___ /\_\    ___    ____
+ *     \/_\__ \\ \  _ `\  /'__`\ /\`'__/\ '__`\ /'__`\\ \ \/\`'__/ __`\/' _ `\/\ \  /'___\ /',__\
+ *       /\ \L\ \ \ \ \ \/\ \L\.\\ \ \/\ \ \L\ /\  __/ \ \ \ \ \/\ \L\ /\ \/\ \ \ \/\ \__//\__, `\
+ *       \ `\____\ \_\ \_\ \__/.\_\ \_\ \ \ ,__\ \____\ \ \_\ \_\ \____\ \_\ \_\ \_\ \____\/\____/
+ *        \/_____/\/_/\/_/\/__/\/_/\/_/  \ \ \/ \/____/  \/_/\/_/\/___/ \/_/\/_/\/_/\/____/\/___/
+ *                                        \ \_\
+ *                                         \/_/
+
+                                              _______----_______
+                                   ___---~~~~~.. ... .... ... ..~~~~~---___
+                             _ ==============================================
+ __________________________ - .. ..   _--~~~~~-------____-------~~~~~
+(______________________][__)____     -
+   /       /______---~~~.. .. ..~~-_~
+  <_______________________________-
+      ~~~~~~~-----__           __-
+                    ~~~~~~~~~~~
+
+                U S S   E N T E R P R I S E   N C C - 1 7 0 1 - D
+
+Owner: SharpeTronics LLC
+Designer: SharpeTronics LLC
+Developer: SharpeTronics LLC
+Editor: SharpeTronics LLC
+Engineering: SharpeTronics LLC
+Quality Assurance: SharpeTronics LLC
+-->
+
+<head>
+  <META charset="utf-8">
+  <META http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <META name="robots" content="index, follow">
+
+  <META name="author" content="{{ site.data.global.author }}">
+  <META name="description" content="{{ site.data.global.description }}">
+  <META name="keywords" content="{{ site.data.global.keywords }}">
+
+  <!-- Geolocation Search Engine Optimization BING -->
+  <META name="geo.position" content="{{ site.data.global.location_coords }}" />
+  <META name="geo.placename" content="{{ site.data.global.location_town }}" />
+  <META name="geo.region" content="{{ site.data.global.location_state }}" />
+  <META name="ICBM" content="{{ site.data.global.location_coords }}" />
+
+  <!-- Twitter -->
+  <META name="twitter:card" content="summary_large_image">
+  <META name="twitter:image" content="{{ page.banner_image }}">
+  <META name="twitter:image:alt" content="{{ page.banner_image_description }}">
+  <META name="twitter:site" content="@{{ site.data.social.twitter_user }}">
+  <META name="twitter:url" content="{{ page.url }}">
+  <META name="twitter:title" content="{{ page.title }}">
+  <META name="twitter:description" content="{{ page.content | strip_html | truncatewords: 50 }}">
+  <META name="twitter:creator" content="{{ page.author }}">
+
+  <!-- Standard SEO Open Graph data -->
+  <META property="og:type" content="article" />
+  <META property="og:locale" content="en_US">
+  <META property="og:title" content="{{ page.title }}" />
+  <META property="og:url" content="{{ page.url }}" />
+  <META property="og:image" content="{{ page.banner_image }}" />
+  <META property="og:image:alt" content="{{ page.banner_image_description }}" />
+  <META property="og:description" content="{{ page.content | strip_html | truncatewords: 50 }}" />
+  <META property="og:site_name" content="{{ site.data.global.title }}" />
+
+  <!-- Favicons for various browsers including mobile -->
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico" sizes="64x49">
+
+  <!-- Jekyll RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml">
+
+  <!-- Site title goes here -->
+  <title> {{ site.data.global.title }} | {{ page.title }} </title>
+
+  <!-- Linking local cascading stylesheet CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <!-- Loading local fonts ; preload for fast generation-->
+  <!--<link rel="preload" href="/assets/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin="anonymous">-->
+
+</head>
+

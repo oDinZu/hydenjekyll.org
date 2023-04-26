@@ -1,0 +1,54 @@
+---
+updatedAt: 2022-12-07T22:21:09.298Z
+layout: post
+title: How to Setup a Docker Drone CI with HTTPS
+subheading: Obiwon Can Oh Be! A digital C3-PO working beside you!
+slug: how-to-setup-a-docker-drone-ci-with-https
+date: 2022-06-28
+author: Charles
+author_image: /uploads/c_avatar_30ba895a14.webp
+banner_image: /uploads/r2d2_skywalker_c84e2364fe.webp
+banner_image_description: r2d2 and Luke lego people standing on a laptop
+category: How-to
+tags: VPS, SSL, Drone CI, Docker, 
+---
+<blockquote><p>R2D2, you know better than to trust a strange computer! [beeps]</p></blockquote><p>In general, this Drone server enables continuous integration (CI) and is a stepping stone for continuous delivery (CD), including gh-pages and gh-actions like functionality.</p><p>For this to function correctly, you will need to have a working instance of Gitea running on your own system.</p><p>This tutorial doesn’t guide you on how-to create your own HTTPS server using Let’s Encrypt and Certbot. I have added the certbot resource below [Setting Up HTTPS Certs] I will document this in more detail in the near future. However, this article is similar to how to get https on your server setup. <a href="https://sharpetronics.com/blog/tutorials/2021/12/27/setup-nginx-https-web-server-with-lets-encrypt-plus-strapi-4.0-headless-cms/">How-to get HTTPS on your server</a></p><p>As a stack developer and business owner, I am working on so many things! It is difficult to remember everything, so documentation is critical for me to remember.</p><p><strong>Note 1:</strong> If you see a [name-goes-here], I am linking to the references shared at the end of the article. <strong>Note 2:</strong> Be sure your firewall <code>sudo ufw status</code> allows port 80 and 443. <code>sudo ufw allow http</code> &amp;&amp; <code>sudo ufw allow https</code>. <strong>Note 3:</strong> If you want to use Docker Engine without sudo, follow this url: <a href="https://docs.docker.com/engine/install/linux-postinstall/">Linux Docker Post-Install</a></p><h3>Requirements</h3><ul><li>Basic Linux CLI knowledge</li><li>A hardened remote SSH server <a href="https://sharpetronics.com/blog/tutorials/2021/07/26/linux-vps-hardening-init/">see Linux VPS hardening</a></li><li>A running Gitea server: Git with a cup of tea</li><li><a href="https://docs.docker.com/engine/install/">Docker Engine</a></li><li>a basic understanding of how to use Docker Engine</li><li>basic Nginx, Gitea and Certbot/Let’s Encrypt experience</li><li>openssl</li></ul><h3>Let’s Begin!</h3><h4>Preparing the Environment</h4><p>Creating our super-duper-shared secret</p><pre><code class="language-plaintext">openssl rand -hex 16
+bea26a2221fd8090ea38720fc445eca6
+</code></pre><p>Creating an OAuth application on Gitea</p><ol><li>Goto your git.example.com and login</li><li>Navigate to your profile settings (not the administrator settings, but personal profile)</li><li>At the top below the main navigation bar, click on <strong>Applications</strong></li><li>Scroll down to the bottom of the page and create a new App name and Redirect URI</li></ol><pre><code class="language-plaintext">Applications Name: drone
+Redirect URI: https://drone.example.com/login
+</code></pre><ol><li>Click <strong>Create Application</strong></li><li>Copy and save your <strong>Client Secret</strong>; you will only be able to see this secret one time.</li><li>In the next section, we will use these credentials to authenticate with Gitea and launch the Drone server.</li></ol><h4>Create &amp; configure the Docker Container</h4><p>Download docker drone image from Dockerhub</p><p><code>docker pull drone/drone:2</code> <code>docker image</code></p><p>Begin configuring and starting drone</p><p><i>The below command creates a container and starts the Docker runner. Remember to replace the environment variables below with your Drone server details.</i></p><pre><code class="language-plaintext">docker run \
+  --volume=/var/lib/drone:/data \
+  --env=DRONE_TLS_AUTOCERT=true \
+  --env=DRONE_HTTP_SSL_REDIRECT=true \
+  --env=DRONE_HTTP_SSL_TEMPORARY_REDIRECT=true \
+  --env=DRONE_HTTP_SSL_HOST=drone.example.com \
+  --env=DRONE_HTTP_STS_SECONDS=315360000 \
+  --env=DRONE_SERVER_CERT=/etc/letsencrypt/live/drone.example.com/fullchain.pem \
+  --env=DRONE_SERVER_KEY=/etc/letsencrypt/live/drone.example.com/privkey.pem \
+  --env=DRONE_GITEA_SERVER=https://git.example.com \
+  --env=DRONE_GITEA_CLIENT_ID=e69c443c-6bc2-4a35-000b-a2f36a885400 \
+  --env=DRONE_GITEA_CLIENT_SECRET=3aY2000000c2Np7zX4e1Z9nlYhelENfX7nmWyxsgVixRg \
+  --env=DRONE_RPC_SECRET=bea26a2221fd80900000038720fc445eca6 \
+  --env=DRONE_SERVER_HOST=drone.example.com \
+  --env=DRONE_SERVER_PROTO=https \
+  --env=DRONE_USER_FILTER=gitea-user-account \
+  --publish=80:80 \
+  --publish=443:443 \
+  --restart=always \
+  --detach=true \
+  --name=st-drone-ssl \
+  drone/drone:2
+</code></pre><p>Going the extra yards</p><p>After you create the docker container, it will automatically restart to remember your configuration, but if you create a shell script, you are able to <code>./shell-script.sh</code> and run the Docker image.</p><pre><code class="language-plaintext">vi shell-script.sh
+copy/paste docker config via CTRL+SHIFT+V
+double check for typos
+hit ESC
+press SHIFT+Z,Z (saves and quits)
+chmod +x shell-script.sh (makes script executable)
+then, run the script with: ./shell-script.sh
+</code></pre><h4>Verify</h4><pre><code class="language-plaintext">docker logs st-drone-ssl
+
+INFO[0000] starting the server
+INFO[0000] successfully pinged the remote server
+</code></pre><h4>Stop &amp; Start Container</h4><pre><code class="language-plaintext">sudo docker container stop st-drone-ssl
+sudo docker container start st-drone-ssl
+</code></pre><h3>Part II - Configure a Drone Runner Pipeline with Docker Engine</h3><p>This article will be shared at a later date.</p><h3>References</h3><ul><li><a href="https://certbot.eff.org/instructions">Setting up HTTPS certs</a></li><li><a href="https://docs.drone.io/server/reference/">Drone Configuration Options</a></li><li><a href="https://docs.drone.io/server/provider/gitea/">Drone Gitea Setup</a></li><li><a href="https://docs.drone.io/server/provider/gitea/">Drone Server Docker Installation</a></li><li><a href="https://www.infoworld.com/article/3271126/what-is-cicd-continuous-integration-and-continuous-delivery-explained.html">What is CI/CD</a></li><li><a href="https://unsplash.com/@studbee">Unsplash - Studbee</a></li></ul><h3>Support</h3><p>If you have any questions, concerns, want to say hi, please join the following channel: <a href="https://discord.gg/HQcvr2JBQv">SharpeTronics Discord Support Channel</a> Eventually, I plan on having a commenting system on here..</p><h3>Donations</h3><p>Recently, I have had many folk as about <strong>how to send me a donation</strong>. If you want to give back andor support my efforts, I have shared various ways to donate. Thank You!</p><ul><li><a href="https://cash.app/$sharpeee">Cash App</a></li><li><a href="https://account.venmo.com/u/seabeeess">Venmo</a></li><li><a href="https://opencollective.com/sharpetronics">Open Collective</a></li></ul>

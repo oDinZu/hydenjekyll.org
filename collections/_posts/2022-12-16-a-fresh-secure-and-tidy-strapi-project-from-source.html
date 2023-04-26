@@ -1,0 +1,18 @@
+---
+updatedAt: 2022-12-16T23:30:47.443Z
+layout: post
+title: A Fresh, Secure and Tidy Strapi Project from Source
+subheading: A clean work space is a happy work space.
+slug: a-fresh-secure-and-tidy-strapi-project-from-source
+date: 2022-12-16
+author: Charles
+author_image: /uploads/c_avatar_30ba895a14.webp
+banner_image: /uploads/tidy_9aa686bedb.webp
+banner_image_description: A clean work space is a happy work space
+category: How-to
+tags: Strapi, Linux, 
+---
+<p>In this tutorial, we will be creating and rebuilding a fresh Strapi application. This article will be beneficial for future upgrades and aid in documentation for other sites being created.&nbsp;</p><h4>Requirements:</h4><ul><li>Yarn or NPM</li><li>Linux CLI knowledge</li><li>A previous or new Strapi project</li></ul><h4>0. Make a complete backup of your current, soon to be previous Strapi project.</h4><p><code>cp -rv strapi-project ./strapi-project_backup</code></p><h4>1. File directory should have the following like</h4><p><i>1a. If you have a previous Strapi project, remove the following files and folders.</i></p><ul><li>build</li><li>.cache</li><li>database</li><li>node_modules</li><li>.strapi-updater.json</li><li>yarn.lock</li></ul><p>then, the following folders should be leftover.</p><ul><li>config dir</li><li>public dir</li><li>src dir</li><li>favicon.ico</li><li>package.json</li><li>.env <i>(if you have a previous Strapi build)</i></li><li>.tmp dir <i>(as of 4.5.4, we must keep this temporary directory)</i></li></ul><h4>2. Install the Strapi Application</h4><p>From the appropriate file structure we begin by installing the appropriate packages from the package.json.&nbsp;&nbsp;<br>This will create a directory called node_modules and a yarn.lock file.</p><p>I also recommend disabling the tracking analytics by updating the package.json to the following:</p><p><strong>./package.json</strong></p><pre><code class="language-plaintext"> "strapi": {
+   "uuid": false
+ },
+ …</code></pre><p>Finally, we <code>yarn install &amp;&amp; yarn build &amp;&amp; yarn develop</code></p><h4>References:</h4><p><strong>Axios Wrapper Bug:</strong> <a href="https://github.com/strapi/strapi/pull/15131">https://github.com/strapi/strapi/pull/15131</a>&nbsp;&nbsp;<br><strong>Unsplash by Toa Heftiba</strong> <a href="https://unsplash.com/@heftiba">https://unsplash.com/@heftiba</a></p>

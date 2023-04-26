@@ -1,0 +1,16 @@
+#Documentation located here: https://github.com/forestryio/jekyll-menus
+---
+header:
+  - url: /
+    title: Home
+    identifier: header
+    pre: <i class="fas fa-home fa-1x"></i>
+  - url: /blog
+    title: Journal
+    identifier: header
+    pre: <i class="fas fa-newspaper fa-1x"></i>
+  - url: /products
+    title: Shop
+    identifier: header
+    pre: <i class="fas fa-store fa-1x"></i>
+---

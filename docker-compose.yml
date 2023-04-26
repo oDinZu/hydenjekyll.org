@@ -1,0 +1,78 @@
+###BEGINNING/COLLABORATING WITH NEW DOCKER/JEKYLL PROJECT###
+#====================================#
+
+## 0. Set Shell JEKYLL_VERSION
+# export JEKYLL_VERSION=4.0
+
+## 1. Creating a New Project with Docker
+# docker run --rm --volume="$PWD:/srv/jekyll" -it jekyll/jekyll:$JEKYLL_VERSION jekyll new mynewproject
+
+## 2. Serving the Blog
+# docker run --name mynewproject --volume="$PWD:/srv/jekyll" -p 4000:4000 -it jekyll/jekyll:$JEKYLL_VERSION jekyll serve --watch --drafts
+
+## 3. [optional] Building an Existing Site for PRODUCTION _site directory
+# docker run --rm --volume="$PWD:/srv/jekyll" -it jekyll/jekyll:$JEKYLL_VERSION jekyll build --trace
+
+## 4. Setup docker-compose commands for easy & quicker docker container management [docker-compose --help]
+## Create and start containers in relative directory
+# docker-compose up
+## Stop and remove containers, networks, images, and volumes
+# docker-compose down
+
+## Start docker services
+# docker-compose start
+## Stop docker services
+# docker-compose stop
+
+#====================================#
+
+## Executing commands in the docker container
+# docker exec -ti myblog gem install "jekyll-theme-hydeout"
+
+## Removing docker container
+# docker rm -f myblog
+
+## Serve docker-compose container in . OR Serve manually
+## docker-compose up
+# docker run --name myblog --volume="$PWD:/srv/jekyll" -p 4000:4000 -it jekyll/jekyll:$JEKYLL_VERSION jekyll serve --watch --drafts
+
+## Discover container ID
+# docker container ls
+
+## Executing a shell in the container
+# docker exec -ti 2d5913b926fc /bin/sh
+
+## Copy template from docker jekyll site container shell
+# cp -R /usr/local/bundle/gems/minima-2.5.1/ /srv/jekyll
+
+# Change ownership from root to user:group after exit shell
+## sudo chown -R username:group foldername/
+
+#Command Options
+## command: 'jekyll serve --watch --drafts --verbose --trace'
+
+#====================================#
+
+## Steps to install packages within docker container; as an example, we need imageMagick with jekyll_picture_tag plugin to convert images in required format.
+# 0. After docker & docker-compose have been setup and running with JEKYLL
+# 1. (discover container ID's & copy ID for step 3) docker container ls --all
+# 2. (in relative jekyll website directory) docker-compose up
+# 3. (While docker container is running, sh into docker image) Open new terminal > docker exec -ti e1906de4a037 /bin/sh (Note: replace container ID with yours)
+# 4. (Once logged into the Docker container RUN) apk --update add imagemagick
+# 5. (Verify package has been installed) convert --version
+# 6. Test jekyll_picture_tag plugin via {% picture test.jpg %}
+
+#====================================#
+
+version: '3'
+services:
+    jekyll-serve:
+      image: jekyll/jekyll:4.2.2
+      volumes:
+        - '.:/srv/jekyll'
+      ports:
+        - 4000:4000
+      #environment:
+        #- USER_EMAIL=$USER_EMAIL
+        #- USER_PASS=$USER_PASS
+      command: jekyll serve --lsi --watch --verbose --trace

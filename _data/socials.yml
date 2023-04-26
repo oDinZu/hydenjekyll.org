@@ -1,0 +1,16 @@
+#This data file contains all the social media information.
+---
+twitter_user: sharpetronics
+twitter_link: https://twitter.com/SharpeTronics
+twitter_desc: "This is a description"
+
+github_user: sharpetronics
+github_link: https://github.com/SharpeTronics
+
+facebook_user: sharpetronics
+facebook_link: https://facebook.com/SharpeeTronics
+
+discord_invite: https://discord.gg/HQcvr2JBQv
+rss_link: https://www.sharpetronics.com/feed.xml
+
+---

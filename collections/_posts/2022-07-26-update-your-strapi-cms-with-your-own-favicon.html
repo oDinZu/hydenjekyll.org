@@ -1,0 +1,24 @@
+---
+updatedAt: 2022-12-07T20:00:04.549Z
+layout: post
+title: Update your Strapi CMS with your own Favicon
+subheading: How-to replace the favicon
+slug: update-your-strapi-cms-with-your-own-favicon
+date: 2022-07-26
+author: Charles
+author_image: /uploads/c_avatar_30ba895a14.webp
+banner_image: /uploads/code_2b5ed5fa9c.webp
+banner_image_description: computer code matrix
+category: How-to
+tags: Jekyll, Strapi, Headless CMS, 
+---
+<p>&nbsp; &nbsp;In this article, we will be replacing the Strapi favicon with your own favicon. This same process is similar to how we replace the login logo <code>AuthLogo</code> and menu logo with <code>MenuLogo</code>. For more details, please visit Strapi documentations example configuration. [<a href="#References">Strapi Documents</a>]</p><blockquote><p><strong>Tip:</strong> This same process may be used to replace the login logo <code>AuthLogo</code> and menu logo with <code>MenuLogo</code>. For more details, please visit <a href="https://docs.strapi.io/developer-docs/latest/development/admin-customization.html#logos">Strapi Documents</a></p></blockquote><p>1. Create an extensions folder at: <code>src/admin/extensions/</code></p><p>2. Upload your favicon into: <code>src/admin/extensions/</code></p><p>3. Replace the <strong>favicon.ico</strong> at: <code>Strapi app root</code> with custom favicon.ico</p><p>4. Update your <code>src/admin/app.js</code> with the following:</p><pre><code class="language-plaintext">// path: src/admin/app.js
+import favicon from './extensions/favicon.png';
+export default {
+  config: {
+         // replace favicon with custom icon
+         head: {
+                favicon: favicon,
+        },
+  }
+}</code></pre><p>5. Rebuild, run &amp; revisit your Strapi app <code>yarn build &amp;&amp; yarn develop</code></p><blockquote><p><i><strong>Note</strong></i><strong>:</strong> Be certain that the cached favicon is cleared. It can be cached in your web browser and also with your domain management &gt; tool like Cloudflare's CDN</p></blockquote><h4>References</h4><p><a href="https://docs.strapi.io/developer-docs/latest/development/admin-customization.html#configuration-options">Strapi Documents</a></p>

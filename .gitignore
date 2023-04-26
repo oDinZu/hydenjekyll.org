@@ -1,0 +1,16 @@
+_site/
+.env
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.gitattributes
+*.geany
+# collections are generated with Drone CI/CD build
+#collections/_products/
+#collections/_posts/
+#collections/_drafts/
+# json data is generated with Drone CI/CD build
+#**.json
+# image data is generated with Drone CI/CD build
+#uploads/
+Gemfile.lock

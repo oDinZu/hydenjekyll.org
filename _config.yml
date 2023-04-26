@@ -1,0 +1,145 @@
+# Welcome to Jekyll 4.0!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+baseurl: "/" # the subpath of your site, e.g. /blog /galacticsociety.github.io
+url: "https://www.sharpetronics.com" # the base hostname & protocol for your site, GitHub example: https://sharpetronics.github.io
+source: "."
+exclude: [st-jekyll-bootstrap, docs]
+
+# Plugins
+plugins:
+  - jekyll-menus
+  - jekyll-archives
+  - jekyll-paginate-v2
+  - jekyll/tagging
+
+# Latent Semantic Indexing for similarity bewtween documents.
+lsi: true
+
+# ===================================================================================
+# the API dashboard configuration
+api:
+    # Ecommerce integration
+    shop:
+      # The Ecommerce Jekyll configuration
+      enabled: false # enable or disable ecommerce integration; defaults to false
+
+    # uri format: [endpoint]+[endpoint_ext]+[endpoint_param] 
+    endpoint: https://dash.sharpetronics.com # url to api; no trailing slash
+    endpoint_api_auth_ext: auth/local  # the ext for Strapi user authentication; no / allowed
+    endpoint_ext: /api/ # (optional) the extension of endpoint e.g. https://www.example.com/api/
+    endpoint_param: ?populate=deep # (optional) e.g. populate all json data; does not affect endpoint_uploads.
+    endpoint_uploads: uploads # the location of all media files on api; this is required for downloading images
+
+    local_media_dir: uploads/ # where to cache the images # TODO add more organization for image folder data e.g. uploads/products & post image folder 
+    cache_images: true # when true (global), new or modified images are downloaded from endpoint_uploads; note: Docker is also caching downloaded images.
+
+    collections:
+      # the "posts" collection
+      posts: # required
+        # Collection name used to construct the url requested. Example: type `foo` would generate the following url `http://localhost:1337/foo`.
+        type: posts  # required; used for directory creation and organizing files
+        filepath: '_data/posts/index.json' # the filepath for posts json hash
+      # the "products" collection
+      products: # optional
+        # Collection name (optional). Used to construct the url requested. Example: type `foo` would generate the following url `http://localhost:1337/foo`.
+        type: products  # required; used for directory creation and organizing files
+        filepath: '_data/products/index.json' # the filepath for products json hash
+      authors: # required
+        # Collection name (optional). Used to construct the url requested. Example: type `foo` would generate the following url `http://localhost:1337/foo`.
+        type: authors  # required; used for directory creation and organizing files
+        filepath: '_data/authors/index.json' # the filepath for products json hash
+# ===================================================================================
+
+# Collection configuration
+# These collections will sort types of products and loop through that
+# type to be displayed on a page. As an example, I have 10 "3D" items, all 10 items
+# will be displayed when a category is selected on the product main index page.
+collections_dir: collections
+
+collections:
+  products:
+    output: true # Needed to generate `./_site/cupcakes/**/*.html` paths.
+    permalink: /products/:categories/:year/:month/:day/:title/
+  posts:
+    output: true
+    permalink: /blog/:categories/:year/:month/:day/:title/
+
+#permalink: "/blog/:categories/:year/:month/:day/:title/" # Built in options include: date, pretty, ordinal, weekdate, none; learn more here: https://jekyllrb.com/docs/permalinks/
+#paginate: 7
+#paginate_path: "/journal/"
+
+# Responsive image conversion; requires imageMagik
+# Test with convert --version SEE: docker-compose.yml for docker container setup.
+# Used for converting api media into webp formatting
+picture:
+  source: "assets/images"
+  output: "assets/images/generated"
+  suppress_warnings: false
+
+sass:
+  style: compressed # other style values: nested expanded compact compressed
+  sass_dir: _scss
+
+# Explicitly turn off the old code
+#paginate: nil
+#paginate_path: nil
+
+# Site configuration for the Jekyll v2 Pagination gem
+pagination:
+  # Site-wide kill switch, disabled here it doesn't run at all
+  enabled: true
+  # Set to 'true' to enable pagination debugging. This can be enabled in the site config or only for individual pagination pages
+  debug: true
+  # The default document collection to paginate if nothing is specified ('posts' is default)
+  collection: 'posts'
+  # How many objects per paginated page, used to be `paginate` (default: 0, means all)
+  per_page: 9
+  # The permalink structure for the paginated pages (this can be any level deep)
+  permalink: '/page/:num.html' # Pages are index.html inside this folder (default)
+  #permalink: '/page/:num.html' # Pages are simple html files
+  #permalink: '/page/:num' # Pages are html files, linked jekyll extensionless permalink style.
+
+  # Optional the title format for the paginated pages (supports :title for original page title, :num for pagination page number, :max for total number of pages)
+  title: ':title - page :num'
+  # Limit how many pagenated pages to create (default: 0, means all)
+  limit: 0
+  # Optional, defines the field that the posts should be sorted on (omit to default to 'date')
+  sort_field: 'date'
+  # Optional, sorts the posts in reverse order (omit to default decending or sort_reverse: true)
+  sort_reverse: true
+  # Optional, the default category to use, omit or just leave this as 'posts' to get a backwards-compatible behavior (all posts)
+  category: 'posts'
+  # Optional, the default tag to use, omit to disable
+  tag: ''
+  # Optional, the default locale to use, omit to disable (depends on a field 'locale' to be specified in the posts,
+  # in reality this can be any value, suggested are the Microsoft locale-codes (e.g. en_US, en_GB) or simply the ISO-639 language code )
+  locale: ''
+ # Optional,omit or set both before and after to zero to disable.
+ # Controls how the pagination trail for the paginated pages look like.
+  trail:
+    before: 3
+    after: 1
+  # Optional, the default file extension for generated pages (e.g html, json, xml).
+  # Internally this is set to html by default
+  extension: html
+  # Optional, the default name of the index file for generated pages (e.g. 'index.html')
+  # Without file extension
+  indexpage: 'index'

@@ -1,0 +1,29 @@
+#This data file contains all the global site information.
+---
+title: SharpeTronics
+legal_title: SharpeTronics, LLC
+support_email: info@sharpetronics.com
+sales_email: sales@sharpetronics.com
+info_email: info@sharpetronics.com
+author: "Charles Sharpe"
+author_link: https://www.csharpe.me
+logo: "/assets/images/st_logo125.svg"
+motto: "The Dashboard"
+keywords: >- # this means to ignore newlines
+  JAMstack, Web Design, Information Technology, Newsletter, 3D Printing,
+  Computer Technician, Hardware, Open Source, Stack Development,
+  Web Apps, Development
+description: >- # this means to ignore newlines
+  Easing the content creators experience sharing information
+  through online information portals is our focus.
+
+location_town: "Charles Town"
+location_state: "US_WV"
+location_coords: "39.63;-79,96"
+
+terms_link: /blog/legal/2022/05/24/our-terms-and-conditions/
+privacy_link: /blog/legal/2022/05/24/our-privacy-policy/
+sitemap_link: /sitemap.xml
+license_shorthand: This is <a href="https://softwarefreedom.org/" target="_blank">Free Software</a> released under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPL-3.0</a>.
+---
+

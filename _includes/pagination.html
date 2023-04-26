@@ -1,0 +1,30 @@
+<!-- Pagination Next & Previous Button Logic -->
+<ul class="actions pagination">
+  {% if paginator.previous_page %}
+    <li><a href="{{ paginator.previous_page_path }}" class="button primary previous"><< Prev</a></li>
+  {% else %}
+    <li><a href="#" class="disabled button primary previous"><< Prev</a></li>
+  {% endif %}
+
+    <div class="ptrail">
+    <!-- Pagination Trail -->
+    {% if paginator.page_trail %}
+      {% for trail in paginator.page_trail %}
+        <li {% if page.url == trail.path %} class="selected" {% endif %}>
+            <a href="{{ trail.path | prepend: site.url }}" title="{{trail.title}}">{{ trail.num }}</a>
+        </li>
+      {% endfor %}
+    {% endif %}
+    </div>
+
+  {% if paginator.next_page %}
+    <li><a href="{{ paginator.next_page_path }}" class="button primary next">Next >></a></li>
+  {% else %}
+  <li><a href="#" class="disabled button primary next">Next >></a></li>
+  {% endif %}
+</ul>
+
+<!-- Pagination Page Number -->
+<span class="page_number ">
+  Page: {{ paginator.page }} of {{ paginator.total_pages }}
+</span>

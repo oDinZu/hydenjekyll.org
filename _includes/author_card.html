@@ -1,0 +1,18 @@
+{% comment %}
+  The author metadata for both posts and post single pages.
+{% endcomment %}
+
+{% if post == blank %}
+{% comment %}
+  Fix display bug when author data is empty.
+{% endcomment %}
+  <div class="meta">
+    <time class="published">{{ page.date | date_to_string }}</time>
+    <h5 class="author"><img src="{{ page.author_image }}" alt="{{ page.author }}" /><span class="name">{{ page.author }}</span></h5>
+  </div>
+  {% else %}
+    <div class="meta">
+      <time class="published">{{ post.date | date_to_string }} </time>
+      <h5 class="author"><img src="{{ post.author_image }}" alt="{{ post.author }}" /><span class="name">{{ post.author }}</span></h5>
+    </div>
+{% endif %}

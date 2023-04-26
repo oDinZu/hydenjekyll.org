@@ -1,0 +1,27 @@
+<button
+ class="button primary fit snipcart-add-item"
+ data-item-id="{{ page.product_id }}"
+ data-item-name="{{ page.heading }}"
+ data-item-url="{{ page.url }}"
+ data-item-price="{{ page.unit_price | precision: 2}}"
+ data-item-image="{{ page.banner_image }}"
+ data-item-description="{{ page.content | remove: '<p>' | remove: '</p>' }}"
+ data-item-shippable="{{ page.is_shippable }}"
+ data-item-taxable="{{ page.is_taxable }}"
+
+ data-item-custom1-name="Colors"
+ data-item-custom1-options="{{ page.colors | replace: ',', '|' }}"
+ 
+ data-item-custom2-name="Sizes"
+ data-item-custom2-options="{{ page.sizes | replace: ',', '|' }}"
+ 
+ data-item-custom3-name="Materials"
+ data-item-custom3-options="{{ page.material_types | replace: ',', '|' }}"
+
+ data-item-custom4-name="Gift note"
+ 
+ data-item-custom5-name="Gift"
+ data-item-custom5-type="checkbox"
+ data-item-custom5-options="true|false">
+ Add To Cart
+</button>

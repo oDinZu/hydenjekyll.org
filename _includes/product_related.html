@@ -1,0 +1,12 @@
+{%- for product in related_products -%}
+<div class="col-4 col-12-small vert-expand">
+  <article class="post product no-padding">
+    <a href="{{ product.url | absolute_url }}"><img alt="{{ product.title }}" src="{{ product.banner_image }}" class="image fit" /></a>
+    <a href="{{ product.url | absolute_url }}"><h4> {{ product.title | strip_html | truncatewords: 7  }} </h4></a>
+    <p>{{ product.content  | markdownify | strip_html | truncatewords: 19 }}</p>
+    <ul class="actions">
+      <li><a href="{{ product.url | absolute_url }}" class="button">Continue ></a></li>
+    </ul>
+  </article>
+</div>
+{% endfor %}

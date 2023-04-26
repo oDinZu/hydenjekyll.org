@@ -1,0 +1,35 @@
+---
+updatedAt: 2022-12-07T23:11:32.639Z
+layout: post
+title: Configure a Static Qt5 from Source on Ubuntu 18.04 with X11 Support
+subheading: Compiling & Configuring Qt from Source
+slug: configure-a-static-qt5-from-source-on-ubuntu-18-04-with-x11-support
+date: 2022-05-24
+author: Charles
+author_image: /uploads/c_avatar_30ba895a14.webp
+banner_image: /uploads/quantum_qt5_41fa19c935.webp
+banner_image_description: A golden circuit board.
+category: Devops
+tags: Linux, Qt5, ARM64, Raspberry Pi 400, X11, 
+---
+<h3>Configure, Build, Install &amp; Setup Qt 5.15.2 Source on Ubuntu 18.04 with X11 Support</h3><p>This tutorial will teach you how to compile from source via CLI (command-line interface) and enable customization for building Qt5 apps on different operating systems andor hardware architectures like RPI400.</p><p>When compiling Qt5 yourself, you are empowered with a configuration that is constant throughout the Linux Universe. This process is also very similar with compiling Qt apps on your (AArch64) ARM64 devices like RPi 400, Rock64 &amp; PineBook64.</p><p><i>Note: This tutorial doesn’t include json Qtwebengine</i></p><h3>What is Qt?</h3><p>“Qt is a cross-platform application development framework for desktop, embedded and mobile.” [Qt Wiki]</p><h3>What is a Static Qt?</h3><p>In general, a static Qt option includes libraries locally. This aids in having an application run on different versions of Linux distros. When the application is compiled, we check the app with <i>ldd yourapp</i> to list what the binary is dependent on to run. Essentially, the Qt libraries are included in the binary. Decovar.dev has a great explanation on advantages and disadvantages of building a static Qt. [At last, let’s build Qt statically]</p><h3>Let’s Begin!</h3><h4>Remove &amp; purge all Qt packages</h4><pre><code class="language-plaintext">sudo apt -y remove qt5* libqt5* qtcreator &amp;&amp; sudo autoremove
+</code></pre><h4>Download Qt 5.15.2 Source to qt5-sources folder</h4><pre><code class="language-plaintext">mkdir qt5-sources &amp;&amp; cd qt5-sources &amp;&amp; mkdir build-shadow
+
+wget https://download.qt.io/official_releases/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz
+</code></pre><p>Verify MD5 hash</p><pre><code class="language-plaintext">md5sum qt-everywhere-src-5.15.2.tar.xz
+</code></pre><pre><code class="language-plaintext">e1447db4f06c841d8947f0a6ce83a7b5  qt-everywhere-src-5.15.2.tar.xz
+</code></pre><p>Un-tar Qt5 archive</p><pre><code class="language-plaintext">tar xf qt-everywhere-src-5.15.2.tar.xz
+</code></pre><p>Move into build-shadow directory to configure your Qt 5.15.2</p><pre><code class="language-plaintext">cd build-shadow
+</code></pre><h4>Install Qt5 Minimal Dependencies</h4><pre><code class="language-plaintext">sudo apt update
+
+sudo apt install build-essential libfontconfig1-dev libdbus-1-dev libfreetype6-dev libicu-dev libinput-dev libxkbcommon-dev libsqlite3-dev libssl-dev libpng-dev libjpeg-dev libglib2.0-dev
+</code></pre><p>(Optional) Install VC4 Drivers for RPi 4 type devices (i.e. cortex-a53 &amp; cortex-a72)</p><pre><code class="language-plaintext">sudo apt install libgles2-mesa-dev libgbm-dev libdrm-dev
+</code></pre><h4>(Optional) Install X11 Support Dependencies</h4><pre><code class="language-plaintext">sudo apt install libx11-dev libxcb1-dev  libxext-dev libxi-dev libxcomposite-dev libxcursor-dev libxtst-dev libxrandr-dev libfontconfig1-dev libfreetype6-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev  libxcb-glx0-dev  libxcb-keysyms1-dev libxcb-image0-dev  libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-shape0-dev  libxcb-randr0-dev  libxcb-render-util0-dev  libxcb-util0-dev  libxcb-xinerama0-dev  libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev</code></pre><h4>Configure Qt 5.15.2</h4><pre><code class="language-plaintext">../qt-everywhere-src-5.15.2/configure -static -release -openssl-linked -opensource -confirm-license -qt-zlib -qt-libpng -bundled-xcb-xinput \
+-skip qtlocation -skip qtmacextras -skip qtpurchasing -skip qtscript -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtdatavis3d -skip qtdoc -skip qtcharts -skip qtdeclarative -skip qt3d -skip qtwebengine -skip qtandroidextras -skip qtwebview -skip qtgamepad -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtwebview -skip qtwebchannel -skip qtwebglplugin \
+-nomake examples -nomake tests  -feature-fontconfig -no-feature-getentropy -v</code></pre><p>*If you would like to see a full list of options, we can do <strong>../qt-everywhere-src-5.15.2/configure -h</strong></p><p>Make the configuration <i>(-j 4 is number of cpus you want to use)</i></p><pre><code class="language-plaintext">make -j 4
+</code></pre><p>Install Qt5 into: <i>(default) /usr/local/</i></p><pre><code class="language-plaintext">sudo make install</code></pre><p><i>Note: Check and make sure ./configure has required deps; if you installed the deps, but still receiving errors, remove config.cache and ./configure again.</i></p><p><strong>Tip:</strong> <i>If you want to view your configuration summary, you may do so via nano config.summary from build-shadow directory</i></p><h4>Update profile to know where Qt5.15.2 bins are</h4><pre><code class="language-plaintext">nano ~/.bashrc</code></pre><p>Add this at the bottom of your .bashrc file.</p><pre><code class="language-plaintext"># set PATH for Qt 5.15.2
+export PATH="/usr/local/Qt-5.15.2/bin:$PATH"</code></pre><p>Reload your ~/.bashrc file &amp; create new shell window.</p><pre><code class="language-plaintext">source ~/.bashrc
+CTRL+SHIFT+T
+ALT+1
+exit</code></pre><p>Verify Qt 5.15.2 has been installed</p><pre><code class="language-plaintext">qmake --version</code></pre><pre><code class="language-plaintext">QMake version 3.1
+Using Qt version 5.15.2 in /usr/local/Qt-5.15.2/lib</code></pre><h4>Build your happy Qt5 app</h4><pre><code class="language-plaintext">./build.sh</code></pre><h4>Support &amp; Questions</h4><p><a href="https://github.com/SharpeTronics/sharpetronics.github.io/issues">sharpetronics.github</a></p><p><img class="image_resized" style="width:37.38%;" src="https://dash.sharpetronics.com/uploads/bob_ross_happy_59f18e7ebe.gif" alt="bob-ross-happy.gif"></p><h4>References</h4><p><a href="https://www.tal.org/tutorials/building-qt-515-raspberry-pi">tal.org/rpi</a></p><p><a href="https://doc.qt.io/qt-5/qtmodules.html">doc.qt.io/qtmodules</a></p><p><a href="https://wiki.qt.io/About_Qt">wiki.qt.io/about</a></p><p><a href="https://decovar.dev/blog/2018/02/17/build-qt-statically/#why-build-qt-statically">why-build-qt-statically</a></p>

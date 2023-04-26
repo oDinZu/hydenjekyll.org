@@ -1,0 +1,191 @@
+____    __                                   ______
+/\  _`\ /\ \                                 /\__  _\                   __
+\ \,\L\_\ \ \___      __    _ __  _____     _\/_/\ \/ _ __  ___    ___ /\_\    ___    ____
+\/_\__ \\ \  _ `\  /'__`\ /\`'__/\ '__`\ /'__`\\ \ \/\`'__/ __`\/' _ `\/\ \  /'___\ /',__\
+  /\ \L\ \ \ \ \ \/\ \L\.\\ \ \/\ \ \L\ /\  __/ \ \ \ \ \/\ \L\ /\ \/\ \ \ \/\ \__//\__, `\
+  \/_____/\/_/\/_/\/__/\/_/\/_/  \ \ \/ \/____/  \/_/\/_/\/___/ \/_/\/_/\/_/\/____/\/___/
+                                  \ \_\
+                                   \/_/
+Owner: SharpeTronics LLC
+Designer: SharpeTronics LLC
+Developer: SharpeTronics LLC
+Editor: SharpeTronics LLC
+Engineering: SharpeTronics LLC
+Quality Assurance: SharpeTronics LLC
+
+The team, technology & tools and memories that empower this site.
+
+AN AMERICAN WEST VIRGINIAN BASED COMPANY
+Montani Semper Liberi
+
+
+
+THE SHARPETRONICS TEAM
+--------
+
+Made with Cosmic L O V E in West Virginia (WV, USA)
+
+SharpeTronics LLC
+
+
+SPECIAL THANKS
+--------------
+@YOU
+
+@Open Collective
+opencollective.com/sharpetronics
+
+@Dane Arr
+danearr.com/
+
+@Ajlkn
+aj.lkn.io/
+
+@Dukeleto
+duke.leto.net/
+
+@Jekyllrb
+jekyllrb.com/
+
+@Gitea
+Gitea.io/
+
+@Snipcart
+Snipcart.com/
+
+@Drogon
+drogon.org/
+
+@Tesla
+tesla.com/
+
+@Artosis
+twitter.com/artosis/
+
+@United States Air Force (USAF)
+airforce.com/
+
+@oDinZu
+odinzu.is/
+
+
+TECHNOLOGY
+----------
+Ruby - A dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write.
+ruby-lang.org/
+
+Ruby Gems - Find, install, and publish RubyGems.
+rubygems.org/
+
+HTML5 - Hypertext Markup Language
+w3schools.com/html
+
+Sass - CSS pre-processor
+sass-lang.com/
+
+Liquid - Templating
+shopify.github.io/liquid
+
+YAML - Data serialization for all programming languages
+yaml.org/
+
+SCSS - CSS with superpowers!
+sass-lang.com/
+
+Font Awesome - Premium Web icons
+fontawesome.com/
+
+Cloudflare - DNS & CDN
+cloudflare.com/
+
+Jekyll - Static site generator
+jekyllrb.com/
+
+Jekyll Plugins - Plugins created by Jekyll community
+jekyll-menus, jekyll-paginate-v2
+
+Drogon - Run your application anywhere, knowing it is as fast as it could be. 
+drogon.org/
+
+Htmx - High power tools for HTML
+htmx.org
+
+Docker - Container virtualization
+docker.com/
+
+Snipcart - Snipcart lets you sell physical products all over the world. Shipping, inventory and discount features help you manage orders.
+snipcart.com/
+
+Stripe - Stripe is a suite of APIs powering online payment processing and commerce solutions for internet businesses of all sizes.
+stripe.com/
+
+Drone CI - Automated software build and test.
+drone.io/
+
+Gitea - A painless, self-hosted Git service.
+gitea.com/
+
+Git & GitHub (Mirror) - Code collaboration, continuous delivery, version management and DevOps
+github.com/
+
+Ubuntu - Operating system
+pop.system76.com/, ubuntu.com/, archlinux.org/
+
+C++ - A high-level, general-purpose programming language
+isocpp.org/
+
+Tmux - A Terminal Multiplexer
+github.com/tmux/tmux/
+
+Certbot - Enable secure websites with Let's Encrypt.
+certbot.eff.org/
+
+Geany - The Flyweight IDE
+geany.org/
+
+DockerHub - Build and ship any application anywhere
+hub.docker.com/
+
+Inkscape, Imagemagick & Gimp - Graphics editor
+inkscape.org/, imagemagick.org/, gimp.org/
+
+Blender - is the free and open source 3D creation suite
+blender.org/
+
+Pursa3D - Josef Prusa found his passion for 3D printers as a student of University of Economics in Prague. 
+prusa3d.com/
+
+Licensing - GPL-3.0
+gnu.org/licenses/gpl-3.0.en.html/
+
+Web Browser Debugging - Testing UI/UX of the website
+google.com/chrome/, mozilla.org/en-US/firefox
+
+Startpage - Search engine privacy
+startpage.com/
+
+Twitter - An American social media company.
+twitter.com/
+
+Facebook - An online social media and social networking service owned by American company Meta Platforms. 
+facebook.com/
+
+Google - An American technology company with a mission to organize the world's information and make it universally accessible and useful.
+google.com/
+
+Android - is a mobile operating system based on a modified version of the Linux kernel and other open-source software, designed primarily for touchscreen mobile devices such as smartphones and tablets.
+android.com/
+
+AMD - Advanced Micro Devices, Inc. (AMD) is an American multinational semiconductor company based in Santa Clara, California, that develops computer processors and related technologies for business and consumer markets.
+amd.com/
+
+...many, many more
+
+
+FONTS
+-----
+
+Ubuntu
+Designed by Dalton Maag
+License: Ubuntu Font License
+www.daltonmaag.com/

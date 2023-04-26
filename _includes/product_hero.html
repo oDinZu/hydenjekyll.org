@@ -1,0 +1,22 @@
+<!-- Initial headline product collection post -->
+<article class="post featured product no-padding">
+  <section class="row">
+
+    <div class="col-6 col-12-small headline-col-limit">
+      <picture>
+        <a href="{{ paginator.posts[0].url | absolute_url }}">
+          <img alt="{{ paginator.posts[0].title }}" src="{{ paginator.posts[0].banner_image }}" class="product-headline-flex" />
+        </a>
+      </picture>
+    </div>
+
+    <div class="col-6 col-12-small product-hero-text vert-expand">
+        <a href="{{ paginator.posts[0].url | absolute_url }}"><h3> {{ paginator.posts[0].title }} </h3></a>
+        <p>{{ paginator.posts[0].content | strip_html | truncatewords: 50 }}</p>
+        <ul class="actions">
+          <li><a href="{{ paginator.posts[0].url | absolute_url }}" class="button">Continue ></a></li>
+        </ul>
+    </div>
+
+  </section>
+</article>

@@ -1,0 +1,46 @@
+---
+layout: default
+pagination:
+  enabled: false
+---
+{% comment %}
+	This layout is the single page of a blog post.
+{% endcomment %}
+
+<section id="main" class="wrapper style1">
+  <div class="inner">
+    {% unless page.layout == "posts" or page.layout == "products" %}
+    <!-- The back button on a single post -->
+    <section class="row product-cart journal">
+      <div class="col-12">
+        <a href="{{site.url}}/blog"><h5 class="button back">< Go Back</h5></a>
+      </div>
+    </section>
+    {% endunless %}
+
+  <!-- Title -->
+    <header class="major special journal">
+      <div class="hero"> <img class="image fit" src="{{ page.banner_image }}" alt="{{ page.banner_image_alt }}"> </div>
+      <h1>{{ page.title }}</h1>
+      <p>{{ page.subheading }}</p>
+    </header>
+    <!-- Content -->
+      <div class="content">
+        {{ content }}
+        {% assign author = page.author %}
+        {%- include author_card.html -%}
+        {%- include back-to-top.html -%}
+        <!-- Related posts collection -->
+        <section class="row related-items">
+          <div class="col-12">
+            <h3>More Posts</h3>
+          </div>
+          {%- assign related_posts = site.posts | where_exp:"post", "post.url != page.url" | sample:3 -%}
+          {%- include post_related.html -%}
+        </section>
+        
+        <!-- A Placeholder for Community Discussion aka Comments -->
+      </div>
+    </div>
+    
+</section>

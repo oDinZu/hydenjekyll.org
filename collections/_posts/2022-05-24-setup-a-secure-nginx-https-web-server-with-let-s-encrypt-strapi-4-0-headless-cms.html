@@ -1,0 +1,52 @@
+---
+updatedAt: 2022-12-07T20:31:26.944Z
+layout: post
+title: Setup a Secure NGINX HTTPS Web Server with Let's Encrypt + Strapi 4.0 Headless CMS
+subheading: Static Websites with CMS
+slug: setup-a-secure-nginx-https-web-server-with-let-s-encrypt-strapi-4-0-headless-cms
+date: 2022-05-24
+author: Charles
+author_image: /uploads/c_avatar_30ba895a14.webp
+banner_image: /uploads/santa_rudolph_unsplash_0ae8e3d5a7.webp
+banner_image_description: Two feet wearing socks beside each other with faces of Santa Clause and another of Rudolph
+category: How-to
+tags: Nginx, Strapi, SSL, Headless CMS, JAMstack, 
+---
+<h2>General</h2><p>For this tutorial, we will launch a secure SSL NGINX web server for your website domain example.org and enable an API to be consumed from the subdomain i.e. <i>api.example.org</i> with Strapi 4.0.&nbsp;</p><blockquote><p><i><strong>Tip</strong></i>: For each reference, I add the <strong>[reference name]</strong> in brackets at the end of the transmission. [<strong>this is an example</strong>]</p></blockquote><h3>Requirements</h3><ul><li>a Ubuntu Linux 20.04 VPS with SSH access - CLI knowledge&nbsp;</li><li>a registered web domain i.e. example.org&nbsp;</li><li>Basic knowledge of DNS and managing a VPS with SSH&nbsp;</li></ul><h3>Dependencies &amp; Packages&nbsp;</h3><ol><li>NodeJS v12 or v14 (v14 is recommended for Strapi 4.0)&nbsp;</li><li>Npm v6+ &amp; Yarn (Yarn is optional) - Certbot with Let's Encrypt&nbsp;</li><li>Nano editor&nbsp;</li></ol><h2>Prepare Operating System&nbsp;</h2><p>Let's Begin! We begin by installing nginx, certbot and verifying versions Strapi needs. Keep in mind, if you are reading this from the future, the versions will change.&nbsp;</p><h3>Update System&nbsp;</h3><pre><code class="language-plaintext">sudo apt update</code></pre><h3>Install Nginx Certbot Packages&nbsp;</h3><pre><code class="language-plaintext">sudo apt install certbot python3-certbot-nginx</code></pre><h3>Install NGINX &amp; verify version&nbsp;</h3><pre><code class="language-plaintext">sudo apt install nginx``` ```node -v &amp;&amp; nginx -v</code></pre><blockquote><p><i><strong>Tip</strong></i>: Strapi recommends nodejs v14, but v12 works.&nbsp;</p></blockquote><h3>Install Yarn (Corepack)&nbsp;</h3><p><code>npm i -g corepack</code> <strong>[Install Yarn]</strong>&nbsp;</p><h2>Configure NGINX&nbsp;</h2><p>Next, we will configure your newly installed Nginx server. By default the configurations are located at: <code>/etc/nginx/ &amp; /etc/nginx/sites-available/</code>. To keep things tidy and organized, we create a new api.example.org conf for each domain we are publicly facing to WWW.&nbsp;</p><h3>Make Directory &amp; Copy Default HTML page&nbsp;</h3><pre><code class="language-plaintext">sudo mkdir -p /var/www/api.example.org/html/</code></pre><pre><code class="language-plaintext">sudo cp -R /var/www/html/index.nginx-debian.html /var/www/api.example.org/html/index.html</code></pre><h3>Duplicate Default Config&nbsp;</h3><pre><code class="language-plaintext">sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/api.example.org</code></pre><h3>Update NGINX api.example.org Config File&nbsp;</h3><p>The <strong>Proxy Config</strong> is important and allows the Strapi 4.0 server to run with nginx. In general, the rest allows SSL and redirects all HTTP traffic to HTTPS, plus denies automated user-agents like wget.&nbsp;</p><pre><code class="language-plaintext">server {
+        # Redirect all HTTP requests to HTTPS
+        listen 80;
+        server_name _;
+        return 301 https://$host$request_uri;
+        # Deny Automated User-Agents
+        if ($http_user_agent ~* (netcrawl|npbot|malicious|LWP::Simple|BBBike|wget)) {
+        return 403;
+        }
+}
+server {
+    # Listen HTTPS
+    listen 443 ssl http2; # managed by Certbot
+    listen [::]:443 ssl http2;
+    server_name api.example.org www.api.example.org;
+    # sites document root
+    root /var/www/api.example.org/html;
+    index index.html index.htm;
+    # SSL Config
+    ssl_certificate /etc/letsencrypt/live/api.example.org/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/api.example.org/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    # Proxy Config
+    location / {
+        proxy_pass http://strapi;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass_request_headers on;
+    }
+}</code></pre><pre><code class="language-plaintext">CTRL+X, then Y for Yes to save</code></pre><h3>Symbolic Link to sites-enabled&nbsp;</h3><p>This creates a 'mirror' like reference to the sites-available folder.</p><pre><code class="language-plaintext">sudo ln -s /etc/nginx/sites-available/api.exampleorg /etc/nginx/sites-enabled/</code></pre><h4>Verify Symbolic Link&nbsp;</h4><pre><code class="language-plaintext">ls /etc/nginx/sites-enabled/</code></pre><h2>DNS Configuration&nbsp;</h2><p>We now point our domain to the server we are hosting our Strapi on. i.e. 123.123.1.1&nbsp;</p><h3>Update DNS Settings&nbsp;</h3><p>Depending on your DNS provider or maybe you have your own Domain Name Server, we point our DNS settings for example.org to 123.123.1.1 as type A. I personally recommend Cloudflare.&nbsp;</p><h2>Create SSL Certs&nbsp;</h2><p>We run the automated tool Certbot and create all the needed files and update our <i>api.example.org</i> configuration file.&nbsp;</p><h3>Run Certbot&nbsp;</h3><pre><code class="language-plaintext">sudo certbot --nginx</code></pre><pre><code class="language-plaintext">Choose api.example.org for the site to create certs. for.</code></pre><pre><code class="language-plaintext">Choose option 1 to disable auto redirect HTTP traffic to HTTPS since we already redirected the traffic manually.</code></pre><blockquote><p><strong>Note:</strong> sudo certbot renew --dry-run will test for automatic renewal for your certs. <strong>[Certbot Insturctions]</strong></p></blockquote><h3>Verify api.example.org Updated with Correct Domain</h3><pre><code class="language-plaintext">sudo nano /etc/nginx/sites-enabled/api.example.org</code></pre><h3>Test Config &amp; Restart Nginx&nbsp;</h3><pre><code class="language-plaintext">sudo nginx -t </code></pre><pre><code class="language-plaintext">sudo systemctl restart nginx</code></pre><h2>Firewall Configuration</h2><p>Allow public to connect via HTTPS, we need to open up ports 80 &amp; 443 (HTTP &amp; HTTPS).&nbsp;</p><h3>Allow UFW Ports for Public Traffic&nbsp;</h3><pre><code class="language-plaintext">sudo ufw allow HTTPS</code></pre><pre><code class="language-plaintext">sudo ufw allow HTTP</code></pre><h3>Verify Status &amp; Reload UFW&nbsp;</h3><pre><code class="language-plaintext">sudo ufw status</code></pre><pre><code class="language-plaintext">sudo ufw reload</code></pre><blockquote><p><strong>Tip</strong> sudo ufw allow 'Nginx Full' opens both port 80 &amp; 443 (For SSL / TLS encryption).&nbsp;</p></blockquote><h2>Getting Started with Strapi</h2><p>Now, we must install Strapi 4.0 on the server and launch the Strapi server.&nbsp;</p><h3>Strapi Default Installation&nbsp;</h3><p>Goto desired place to install Strapi project i.e. ~/development/my-strapi-project, then,&nbsp;</p><pre><code class="language-plaintext">yarn create strapi-app my-project</code></pre><blockquote><p><strong>Note</strong>: The default Strapi installation uses SQLite as the database. You are able to use other databases like PostgreSQL. See <strong>[Strapi Installation]</strong> for more details.&nbsp;</p></blockquote><h3>Launch Strapi Development Server&nbsp;</h3><pre><code class="language-plaintext">yarn develop</code></pre><h3>Launch Strapi from Domain URL&nbsp;</h3><pre><code class="language-plaintext">Goto: api.example.com via web browser of your choice.</code></pre><pre><code class="language-plaintext">Follow the instructions and continue creating a new Strapi administrator.</code></pre><h4>References</h4><p><a href="https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/optional-software/nginx-proxy.html#nginx-upstream">Nginx Strapi Configuration</a></p><p><a href="https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/installation/cli.html#creating-a-strapi-project">Strapi Installation</a></p><p><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04">Nginx Server Blocks</a></p><p><a href="https://yarnpkg.com/getting-started/install">Install Yarn</a></p><p><a href="https://certbot.eff.org/instructions?ws=nginx&amp;os=ubuntufocal">Certbot Insturctions</a></p><h4>Donations Are Welcome&nbsp;</h4><p><a href="https://cash.app/$sharpeee">Cash App</a>&nbsp;</p>

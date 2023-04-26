@@ -1,0 +1,47 @@
+---
+
+---
+{% comment %}
+	The default layout for the site, which is extended by all other layouts.
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+{% include head.html %}
+
+{% if page.title == "Home" %}
+<body class="admin">
+{% else %}
+<body class="landing">
+{% endif %}
+
+<div class="container full-width">
+
+  <main class="row" aria-label="Content">
+    
+    <div class="two columns">
+    
+      {%- include navigation.html -%}
+    
+    </div>
+     
+    <div class="ten columns">
+      {% comment %}
+        Any layout that extends this layout will have its contents
+        added as the {{content}} variable.
+      {% endcomment %}
+
+      {{ content }}
+    </div>
+  </main>
+
+  <!-- JS scripts get loaded last-->
+	<script src="{{ "/assets/js/htmx.min.js" | relative_url }}" defer></script>
+
+</div>
+
+{% include footer.html %}
+  </body>
+</html>
+

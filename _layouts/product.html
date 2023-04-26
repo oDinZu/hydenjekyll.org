@@ -1,0 +1,109 @@
+---
+layout: default
+pagination:
+  enabled: false
+---
+{% comment %}
+	This layout is the single page of a product post.
+{% endcomment %}
+
+<section id="main" class="wrapper style1">
+  <div class="inner">
+
+    <!-- Shopping Cart -->
+    <section class="row product-cart">
+      <div class="col-6">
+        <a href="{{site.url}}/products"><h5 class="button back">< Go Back</h5></a>
+      </div>
+      <div class="col-6">
+        <ul>
+          <li>
+            <a href="#" class="fas fa-shopping-basket fa-2x snipcart-checkout"><span class="snipcart-total-price product-font-price">$0.00</span></a>
+          </li>
+        </ul>
+      </div>
+      </section>
+      <!-- Page Heading -->
+      <header class="major special">
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.subheading }}</p>
+      </header>
+    <!-- Main Body Content -->
+      <div class="content">
+          <section class="row">
+          <!-- Product Image Banner -->
+          <div class="col-6 col-12-small product-image">
+            <section class="">
+              <img alt="{{ page.title }}" src="{{ page.banner_image }}" class="product-flex" />
+              
+              <!-- Product Gallery Grid -->
+              {%- include product-grid-gallery.html -%}
+            </section>
+            
+            <!-- Product Description -->
+            <section class="row product-desc">
+              <div class="col-12">
+                <h3>Product Description</h3>
+              </div>
+              <div class="col-12">
+                {{ page.content }}
+                {% assign author = page.author %}
+                {%- include author_card.html -%}
+                <!-- Product Add To Cart Button with Ecommerce Snipcart superpowers! -->
+                {%- include product-definition.html -%}
+                {%- include back-to-top.html -%}
+              </div>
+            </section>
+          </div>
+          <!-- Product Details List -->
+          <div class="col-6 col-12-small product-details">
+            <section class="">
+              <ul>
+                <h4>Product Details</h4>
+                <li><b>Name:</b> {{ page.heading }}</li>
+                <li><b>Price:</b> ${{ page.unit_price | precision: 2 }}</li>
+                <li><b>Quantity:</b> {{ page.quantity | precision: 1 }}</li>
+                <li><b>Size(s):</b> {{ page.sizes }}</li>
+                <li><b>Condition:</b> {{ page.condition }}</li>
+                <li><b>Color(s):</b> {{ page.colors }}</li>
+                <li><b>Material Type(s):</b> {{ page.material_types }}</li>
+                <br />
+                <h4>Product Specifics</h4>
+                <li><b>Product ID:</b> {{ page.product_id }}</li>
+                <li><b>Part Number:</b> {{ page.part_number }}</li>
+                <li><b>Model Number:</b> {{ page.model_number }}</li>
+                <li><b>Country Origin:</b> {{ page.country_origin }}</li>
+                <li><b>Currency Type(s):</b> {{ page.currency_types }}</li>
+                <li><b>Tags:</b> {{ page.tags }}</li>
+                <li><b>Tax Code:</b> {{ page.tax_code }}</li>
+                <li><b>Taxable:</b> {{ page.is_taxable }}</li>
+                <li><b>Digital Software:</b> {{ page.is_software }}</li>
+                <li><b>Shippable:</b> {{ page.is_shippable }}</li>
+              </ul>
+              {%- if page.is_shippable == true -%}
+                <ul>
+                  <br />
+                  <h4>Shipping Details</h4>
+                  <li><b>Costs:</b> ${{ page.shipping_price | precision: 2 }}</li>
+                  <li><b>Rates:</b> {{ page.shipping_rates }}</li>
+                  <li><b>Companies:</b> {{ page.shipping_companies }}</li>
+                  <li><b>Weight:</b> {{ page.weight }} lbs</li>
+                  <li><b>Dimensions:</b> {{ page.package_dimensions }}</li>
+                </ul>
+              {%- endif -%}
+            </section>
+          </div>
+          </section>
+
+          <!-- Related product collection -->
+          <section class="row related-items">
+            <div class="col-12">
+              <h3>More Products</h3>
+            </div>
+            {%- assign related_products = site.products | where_exp:"product", "product.url != page.url and product.layout == 'product'" | sample:3 -%}
+            {%- include product_related.html -%}
+        </section>
+      </div>
+
+    </div> <!-- Closing Inner -->
+</section> <!-- Closing Main Body -->

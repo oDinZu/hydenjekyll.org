@@ -1,0 +1,41 @@
+---
+layout: post
+---
+{% comment %}
+	This layout is the posts index (a collection of all blog posts).
+{% endcomment %}
+
+<!-- Main Body Content -->
+<div class="content">
+	<!-- This loops through the paginated posts collection posts-->
+	{% for post in paginator.posts %}
+
+	  <!-- Post layout structure -->
+	  <article class="post">
+	    <header>
+	      <a href="{{ post.url }}" class="hero image fit"><img src="{{ post.banner_image }}" alt="{{ post.title }}" loading="lazy"/></a>
+
+	      <div class="title">
+	        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+	        <p>{{ post.subheading }}</p>
+	      </div>
+	      {% assign author = site.data.authors[post.author] %}
+	      {%- include author_card.html -%}
+	    </header>
+	    <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+	    <footer>
+	      <ul class="actions">
+	        <li><a href="{{ post.url }}" class="button"><b>Continue Reading</b></a></li>
+	      </ul>
+	      <ul class="stats">
+	        <li><b>{{ post.category }}</b></li>
+					<li><b>Tags: </b>{{ post.tags }}</li>
+	        <!-- <li class="icon solid fa-heart">144</li> -->
+	        <li><a href="{{ post.url }}" class="icon solid fa-comment">43</a></li>
+	      </ul>
+	    </footer>
+	  </article>
+	{% endfor %}
+	<!-- Pagination to navigate to another collection of posts -->
+	{% include pagination.html %}
+</div>

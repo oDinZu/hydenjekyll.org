@@ -1,0 +1,43 @@
+---
+layout: post
+---
+{%- comment -%}
+	This layout is the shop index of products with pagination & collections.
+{%- endcomment -%}
+
+<!-- Shopping Cart -->
+<section class="row product-cart">
+	<div class="col-12">
+		<ul>
+			<li>
+				<a href="#" class="fas fa-shopping-basket fa-2x snipcart-checkout"><span class="snipcart-total-price product-font-price">$0.00</span></a>
+			</li>
+		</ul>
+	</div>
+</section>
+<!-- <!-- Shop navigation for categories -->
+<!-- {%- include product_cat.html -%} -->
+
+<div class="content">
+<!-- Hero Product Post -->
+{%- include product_hero.html -%}
+
+<!--  Featured Product Posts -->
+<section class="row">
+	{%- assign featured_posts = paginator.posts | slice: 1, 4 -%}
+	{%- for post in featured_posts -%}
+		{%- include product_featured.html -%}
+	{%- endfor -%}
+</section>
+
+<!--  More Products -->
+<section class="row">
+{%- assign rest = paginator.posts | slice: 5, 11 -%}
+{%- for post in rest -%}
+		{%- include product_rest.html -%}
+{%- endfor -%}
+</section>
+
+<!-- Pagination to navigate to another collection of posts -->
+{% include pagination.html %}
+</div>

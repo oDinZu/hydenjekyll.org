@@ -1,0 +1,161 @@
+---
+# This software configures the virtual machine environment with Gitea and Drone services, builds the Jekyll app, then, securely packages and transports that app to a designated service provider or VPS on the fly.
+# Copyright (C) SharpeTronics LLC, 2013-PRESENT
+
+# Author(s): SharpeTronics LLC
+# License: GPLv3
+# Version: 1.6
+
+# This is Free Software released under GPLv3. Any misuse of this software
+# will be followed up with GPL enforcement via Software Freedom Law Center:
+# https://www.softwarefreedom.org/
+
+# If you incorporate or include any code from SharpeTronics LLC, your
+# code must be licensed as GPLv3 (not GPLv2 or MIT)
+
+# The GPLv3 software license applies to the code directly included in this source distribution.
+# See the LICENSE & COPYING file for full information.
+
+# Dependencies downloaded as part of the build process may be covered by other open-source licenses.
+
+# We are open to granting a more permissive (such as MIT or Apache 2.0) license to SharpeTronics LLC,
+# software on a *case-by-case* basis, for an agreed upon price. Please email
+# info@sharpetronics.com.
+
+# If you would like to contribute to this code, please follow GPLv3 guidelines.
+# as an example, after making changes to the software (Called a Fork) and credit the original copyright holder as the creator with your credit added to theirs.
+
+kind: pipeline
+type: docker
+name: build
+
+workspace:
+  path: /drone/src
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  branch:
+  - master
+  
+steps:
+- name: build-website
+  image: ruby:latest
+  environment:
+    GITEA_USER:
+      from_secret: gitea_user
+    GITEA_PASS:
+      from_secret: gitea_pass
+    SSH_USER:
+      from_secret: ssh_user
+    SSH_HOST:
+      from_secret: ssh_host
+    NO_HOSTKEY:
+      from_secret: no_hostkey
+    SERVER_PASS:
+      from_secret: server_pass
+    STRAPI_BOT_USER_EMAIL:
+      from_secret: strapi_bot_user_email
+    STRAPI_BOT_USER_PASS:
+      from_secret: strapi_bot_user_pass
+  privileged: false
+  volumes:
+    - name: jekyll
+      path: /srv/jekyll
+
+  commands:
+    # general vm information for debugging
+    - whoami
+    - pwd
+    - gem environment
+
+    # add dependencies to tmp docker vm
+    - apt-get update && apt-get -y install rsync sshpass openssh-server openssh-client bc
+    - rsync --version
+    - bc --version
+
+    # write the ssh key to disk for rsync handshake to remote server
+    - mkdir -p ~/.ssh/
+    - chmod 700 ~/.ssh
+    # create key id_rsync_ed25519 & id_rsync_ed25519.pub (Only share *.pub with .ssh/authorized_keys on target server B)
+    - ssh-keygen -t ed25519 -f ~/.ssh/id_rsync_ed25519 -N ''
+    - chmod 600 ~/.ssh/id_rsync_ed25519
+    - eval `ssh-agent -s`
+    - service ssh start
+    - service ssh status
+
+    # load updated ssh_config from drone secret of repo: StrictHostKeyChecking no
+    - echo "$NO_HOSTKEY" > /etc/ssh/ssh_config
+    - cat /etc/ssh/ssh_config
+
+    # add private key to ssh-agent for ssh-copy-id
+    - ssh-add ~/.ssh/id_rsync_ed25519
+    - service ssh reload
+    - SSHPASS="$SERVER_PASS" sshpass -ev ssh-copy-id $SSH_USER@$SSH_HOST
+
+    # setup Jekyll permissions and build jekyll site
+    - adduser --no-create-home --disabled-password --gecos "" jekyll
+    - chown -R jekyll:jekyll /drone/src
+    - gem install bundler
+    - bundle install
+    - bundle update --bundler
+    - bundle exec jekyll build --verbose --trace
+
+    # prepare _site dir for www-data branch & compression
+    - ls -a _site/
+    - rm _site/docker-compose.yml
+
+    # update www-data branch with fresh drone ci Jekyll _site build
+    - git clone https://git.sharpetronics.com/sharpetronics/sharpetronics.com.git
+    - cd sharpetronics.com/
+    - git checkout www-data
+    # remove all build files and keep only _site directory
+    - ls -a
+    - rm -rfv *
+    # copy all the files from the finished previous build ../site
+    - cp -R ../_site/* .
+    # display files being pushed to www-data
+    - ls -a
+    # add changes from all tracked and untracked files 
+    - git add -A
+    - git commit -m "SharpeTronics bots bee-ring bots!"
+    # push fresh _site only www-data to remote git.sharpetronics.com
+    - git push https://$GITEA_USER:$GITEA_PASS@git.sharpetronics.com/sharpetronics/sharpetronics.com.git
+
+    # sync files to remote server [local _site ] to [remote www edge] while preserving permissions.
+    - chmod -R 775 ../_site
+    - groupadd rsync-users
+    - chown -R www-data:rsync-users ../_site
+    # a = archive v=verbose z=compress r=recursive -e=env
+    - rsync -aXvPzr --omit-dir-times --chown=www-data:rsync-users --chmod=775 -e ssh ../_site/* $SSH_USER@$SSH_HOST:/var/www/sharpetronics.com/html/
+
+    # create tar.gz of _site directory for download elsewhere
+    #- tar -czf ../www-data_sharpetronics.tar.gz ../_site/*
+    #- chmod 775 ../www-data_sharpetronics.tar.gz
+    #- chown www-data:www-data ../www-data_sharpetronics.tar.gz
+
+    # size of the file in bytes
+    #- tar -tzvf ../www-data_sharpetronics.tar.gz | sed 's/ \+/ /g' | cut -f3 -d' ' | sed '2,$s/^/+ /' | paste -sd' ' | bc
+    #- ls ../ww*
+
+    # add download.tar.gz of files from download.sharpetronics.com
+    # a = archive v=verbose z=compress r=recursive -e=env
+    #- rsync -avz --chmod=775 -e ssh ../www-data_sharpetronics.tar.gz $SSH_USER@$SSH_HOST:/var/www/downloads.sharpetronics.com/html/sharpetronics.com/
+    
+#      _               _            _    
+#  ___| |_ __ _ _ __  | |_ _ __ ___| | __
+# / __| __/ _` | '__| | __| '__/ _ \ |/ /
+# \__ \ || (_| | |    | |_| | |  __/   < 
+# |___/\__\__,_|_|     \__|_|  \___|_|\_\
+#                                              _______----_______
+#                                   ___---~~~~~.. ... .... ... ..~~~~~---___
+#                             _ ==============================================
+# __________________________ - .. ..   _--~~~~~-------____-------~~~~~
+#(______________________][__)____     -
+#   /       /______---~~~.. .. ..~~-_~
+#  <_______________________________-
+#      ~~~~~~~-----__           __-
+#                    ~~~~~~~~~~~
+#                U S S   E N T E R P R I S E   N C C - 1 7 0 1 - D

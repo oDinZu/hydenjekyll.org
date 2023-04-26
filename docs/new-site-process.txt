@@ -1,0 +1,19 @@
+Creating a brand new Jekyll website process
+================================================
+
+0. Choose a Jekyll template or custom design.
+1. Create a new project in Geany with Project/New
+2. Create space to work on the new site
+3. On the git server, create and setup the new site repository. Note: the license is copied from bootstrap
+4. Clone the new site repository: git clone https://git.sharpetronics.com/sharpetronics/new-site-repo-example
+5. cd into the new-site-repo-example and clone the Bootstrap: git clone https://git.sharpetronics.com/sharpetronics/st-jekyll-bootstrap
+6. cd into st-jekyll-bootstrap
+7. run the bash script bash ./generate-new-jekyll-site.sh
+8. cd .. out of the script directory and optionally remove st-jekyll-bootstrap with rm -r st-jekyll-bootstrap
+9. git status && git add * to add all the new folders and files; double check to make sure hidden files are added.
+10. git commit -m "base site scaffolding initialized"
+11. git push origin master
+12. Verify the git server for new files uploaded
+13. Test run the Jekyll dev environment with sudo docker compose up (requires docker ce and docker compose)
+13. Begin live local development and converting the template into Jekyll
+ 
