@@ -58,7 +58,7 @@ No proprietary operating system dependencies required, only Docker Engine super 
 
 ### Clone, Build & Launch
 1. ```git clone https://github.com/sharpetronics/hydenjekyll.org```
-2. ```cd hydenjekyll.org``
+2. ```cd hydenjekyll.org```
 3. ```docker compose up```
 4. ```open a web browser and navigate to: localhost:4000```
 
