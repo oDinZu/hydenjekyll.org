@@ -7,7 +7,7 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "~> 4.2.2"
+gem "jekyll", "~> 4.3.2"
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 # gem "minima", "~> 2.5"
 
@@ -26,11 +26,7 @@ end
 
 group :dev_plugins do
   gem 'webrick', '~> 1.7' # dep for Jekyll 4.2.2; Ruby 3 doesn't have webrick by default anymore.
-  gem 'json', '~> 2.1' # dep for transforming json data
-  gem 'faraday' # a simple, but flexible HTTP client library, with support for multiple backends.
-  gem 'faraday-multipart' # send with UDP; No encoding of the data; currently being used with download-images.rb
-  gem 'httpx' # swiss army knife of Ruby for HTTP
-  gem 'rails' # must use Rails for .blank support
+  gem 'jekyll-sass-converter', '~> 2.1'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem

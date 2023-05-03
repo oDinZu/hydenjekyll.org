@@ -1,11 +1,35 @@
+/* Sidebar Navigation */
+
+.h4-sidebar {
+  margin: 0;
+}
+
+.p-sidebar {
+  margin:0;
+  padding:0;
+}
+
+.hr-sidebar {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.ul-sidebar {
+  list-style: none;
+}
+
+#navlogo {
+  height: 3em;
+  width: auto;
+}
+
+.sidebar-logo {
+  padding: .3em;
+}
+
 /* Utilities */
 
 .center {
   text-align: center;
  }
 
-/* Full width container */
-.full-width {
-  max-width: 100%;
-  width: 100%;
-}

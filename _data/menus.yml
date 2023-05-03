@@ -2,15 +2,53 @@
 ---
 header:
   - url: /
-    title: Home
+    title: Dashboard
+    category: General
     identifier: header
-    pre: <i class="fas fa-home fa-1x"></i>
-  - url: /blog
-    title: Journal
+    pre: <i class="fa-solid fa-dragon"></i>
+  - url: /posts
+    title: Posts
+    category: General
     identifier: header
-    pre: <i class="fas fa-newspaper fa-1x"></i>
+    pre: <i class="fa-solid fa-newspaper"></i>
+  - url: /pages
+    title: Pages
+    category: Content
+    identifier: header
+    pre: <i class="fa-solid fa-file"></i>
+  - url: /drafts
+    title: Drafts
+    category: Content
+    identifier: header
+    pre: <i class="fa-solid fa-pen-ruler"></i>
   - url: /products
-    title: Shop
+    title: Authors
+    category: Plugins
     identifier: header
-    pre: <i class="fas fa-store fa-1x"></i>
+    pre: <i class="fa-solid fa-user"></i>
+  - url: /categories
+    title: Categories
+    category: Plugins
+    identifier: header
+    pre: <i class="fa-solid fa-cat"></i>
+  - url: /tags
+    title: Tags
+    category: Meta
+    identifier: header
+    pre: <i class="fa-solid fa-tags"></i>
+  - url: /navigation
+    title: Navigation
+    category: Menu
+    identifier: header
+    pre: <i class="fa-solid fa-map"></i>
+  - url: /commments
+    title: Comments
+    category: Plugins
+    identifier: header
+    pre: <i class="fa-solid fa-comments"></i>
+  - url: /config
+    title: Configuration
+    category: Settings
+    identifier: header
+    pre: <i class="fa-solid fa-gear"></i>
 ---

@@ -1,6 +1,6 @@
 #This data file contains all the global site information.
 ---
-title: SharpeTronics
+title: The Dashboard
 legal_title: SharpeTronics, LLC
 support_email: info@sharpetronics.com
 sales_email: sales@sharpetronics.com
@@ -8,7 +8,7 @@ info_email: info@sharpetronics.com
 author: "Charles Sharpe"
 author_link: https://www.csharpe.me
 logo: "/assets/images/st_logo125.svg"
-motto: "The Dashboard"
+motto: "Drogon Admin"
 keywords: >- # this means to ignore newlines
   JAMstack, Web Design, Information Technology, Newsletter, 3D Printing,
   Computer Technician, Hardware, Open Source, Stack Development,

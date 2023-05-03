@@ -33,41 +33,6 @@ plugins:
 # Latent Semantic Indexing for similarity bewtween documents.
 lsi: true
 
-# ===================================================================================
-# the API dashboard configuration
-api:
-    # Ecommerce integration
-    shop:
-      # The Ecommerce Jekyll configuration
-      enabled: false # enable or disable ecommerce integration; defaults to false
-
-    # uri format: [endpoint]+[endpoint_ext]+[endpoint_param] 
-    endpoint: https://dash.sharpetronics.com # url to api; no trailing slash
-    endpoint_api_auth_ext: auth/local  # the ext for Strapi user authentication; no / allowed
-    endpoint_ext: /api/ # (optional) the extension of endpoint e.g. https://www.example.com/api/
-    endpoint_param: ?populate=deep # (optional) e.g. populate all json data; does not affect endpoint_uploads.
-    endpoint_uploads: uploads # the location of all media files on api; this is required for downloading images
-
-    local_media_dir: uploads/ # where to cache the images # TODO add more organization for image folder data e.g. uploads/products & post image folder 
-    cache_images: true # when true (global), new or modified images are downloaded from endpoint_uploads; note: Docker is also caching downloaded images.
-
-    collections:
-      # the "posts" collection
-      posts: # required
-        # Collection name used to construct the url requested. Example: type `foo` would generate the following url `http://localhost:1337/foo`.
-        type: posts  # required; used for directory creation and organizing files
-        filepath: '_data/posts/index.json' # the filepath for posts json hash
-      # the "products" collection
-      products: # optional
-        # Collection name (optional). Used to construct the url requested. Example: type `foo` would generate the following url `http://localhost:1337/foo`.
-        type: products  # required; used for directory creation and organizing files
-        filepath: '_data/products/index.json' # the filepath for products json hash
-      authors: # required
-        # Collection name (optional). Used to construct the url requested. Example: type `foo` would generate the following url `http://localhost:1337/foo`.
-        type: authors  # required; used for directory creation and organizing files
-        filepath: '_data/authors/index.json' # the filepath for products json hash
-# ===================================================================================
-
 # Collection configuration
 # These collections will sort types of products and loop through that
 # type to be displayed on a page. As an example, I have 10 "3D" items, all 10 items

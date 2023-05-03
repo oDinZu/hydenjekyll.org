@@ -16,17 +16,17 @@
 <body class="landing">
 {% endif %}
 
-<div class="container full-width">
+<div class="container-fluid">
 
   <main class="row" aria-label="Content">
     
-    <div class="two columns">
+    <div class="col-3">
     
       {%- include navigation.html -%}
     
     </div>
      
-    <div class="ten columns">
+    <div class="col-9">
       {% comment %}
         Any layout that extends this layout will have its contents
         added as the {{content}} variable.

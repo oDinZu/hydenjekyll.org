@@ -1,34 +1,43 @@
 <!-- Nav -->
   <div class="row">
     
-    <div class="four columns">
+    <div class="col-3 sidebar-logo">
     
-      <a href="/" class="logo"><img src="/assets/images/st_logo125.svg" alt="{{ site.data.global.title }}" aria-hidden="true" /></a>
+      <a href="/" class="logo">
+        <i class="fa-solid fa-dragon fa-2xl"></i> 
+      </a>
+    
+    </div>
+    
+    <div class="col-9">
+      <hgroup>      
+        <h4 class="">{{ site.data.global.title }}</h4>
+        <h5 class="">{{ site.data.global.motto }}</h5>      
+      </hgroup>
     
     </div>
     
-    <div class="eight columns">
-    
-      <h5>{{ site.data.global.title }}</h5>
-      <p>{{ site.data.global.motto }}</p>
-    
-    </div>
-
   </div>
-
+  
+  <hr class="hr-sidebar"/>
+  
   <div class="row">
   
-    <nav id="menu">
-      <ul class="links">
-        {% for item in site.menus.header %}
-        <li class="menu-item-{{ loop.index }}">
-          <a href="{{ item.url }}" title="Go to {{ item.title }}">{{ item.pre }} {{ item.title }}</a>
-        {% endfor %}
-      </ul>
-      <!-- <ul class="actions stacked">
-        <li><a href="#" class="button primary fit">Log In</a></li>
-      </ul> -->
-    </nav>
+    <aside>      
+      <nav id="menu">
+        <ul class="links">
+          {% for item in site.menus.header %}
+          <li class="menu-item-{{ loop.index }}">
+            <a href="{{ item.url }}" title="Go to {{ item.title }}">{{ item.pre }} {{ item.title }}</a>
+          {% endfor %}
+        </ul>
+        <!-- <ul class="actions stacked">
+          <li><a href="#" class="button primary fit">Log In</a></li>
+        </ul> -->
+      </nav>      
+    </aside>
   
   </div>
+
+
 

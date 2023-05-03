@@ -1,8 +1,17 @@
-// Import Skeleton CSS
-@import 'libs/skeleton';
+// Import Simple Grid
+// https://simplegrid.io/
+@import 'libs/simple-grid/simple-grid';
 
-// Import Normalize CSS
-@import 'libs/normalize';
+// Import Picoc CSS Framework
+// https://picocss.com/docs/
+@import 'libs/pico/pico';
 
-// Custom
+// Font Awesome 6.4
+// https://fontawesome.com/search?o=r&m=free
+@import 'libs/font-awesome/fontawesome';
+
+@import 'libs/font-awesome/solid';
+@import 'libs/font-awesome/brands';
+
+// Your Custom CSS
 @import 'custom';
