@@ -18,15 +18,15 @@
 
 <div class="container-fluid">
 
-  <main class="row" aria-label="Content">
+  <main class="row vert-expand">
     
-    <div class="col-3">
+    <div class="col-3 sidebar-nav">
     
       {%- include navigation.html -%}
     
     </div>
      
-    <div class="col-9">
+    <div class="col-9" aria-label="Content">
       {% comment %}
         Any layout that extends this layout will have its contents
         added as the {{content}} variable.
@@ -41,7 +41,6 @@
 
 </div>
 
-{% include footer.html %}
   </body>
 </html>
 

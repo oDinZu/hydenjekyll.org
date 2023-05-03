@@ -185,7 +185,7 @@ amd.com/
 FONTS
 -----
 
-Ubuntu
-Designed by Dalton Maag
-License: Ubuntu Font License
-www.daltonmaag.com/
+Overpass
+Designed by Delve Withrington, Dave Bailey, and Thomas Jockin
+License: Open Font License
+https://delvefonts.com/fonts/overpass/

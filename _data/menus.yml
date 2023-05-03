@@ -1,54 +1,54 @@
 #Documentation located here: https://github.com/forestryio/jekyll-menus
 ---
-header:
-  - url: /
-    title: Dashboard
-    category: General
-    identifier: header
-    pre: <i class="fa-solid fa-dragon"></i>
+collections:
   - url: /posts
     title: Posts
-    category: General
-    identifier: header
-    pre: <i class="fa-solid fa-newspaper"></i>
+    identifier: collections
+    pre: <i class="fa-solid fa-newspaper fa-fw"></i>
   - url: /pages
     title: Pages
-    category: Content
-    identifier: header
-    pre: <i class="fa-solid fa-file"></i>
+    identifier: collections
+    pre: <i class="fa-solid fa-file fa-fw"></i>
   - url: /drafts
     title: Drafts
-    category: Content
-    identifier: header
-    pre: <i class="fa-solid fa-pen-ruler"></i>
-  - url: /products
+    identifier: collections
+    pre: <i class="fa-solid fa-pen-ruler fa-fw"></i>
+  - url: /authors
     title: Authors
-    category: Plugins
-    identifier: header
-    pre: <i class="fa-solid fa-user"></i>
+    identifier: collections
+    pre: <i class="fa-solid fa-user fa-fw"></i>
   - url: /categories
     title: Categories
-    category: Plugins
-    identifier: header
-    pre: <i class="fa-solid fa-cat"></i>
+    identifier: collections
+    pre: <i class="fa-solid fa-cat fa-fw"></i>
   - url: /tags
     title: Tags
-    category: Meta
-    identifier: header
-    pre: <i class="fa-solid fa-tags"></i>
-  - url: /navigation
-    title: Navigation
-    category: Menu
-    identifier: header
-    pre: <i class="fa-solid fa-map"></i>
+    identifier: collections
+    pre: <i class="fa-solid fa-tags fa-fw"></i>
   - url: /commments
     title: Comments
-    category: Plugins
-    identifier: header
-    pre: <i class="fa-solid fa-comments"></i>
+    identifier: collections
+    pre: <i class="fa-solid fa-comments fa-fw"></i>
+settings:
+  - url: /menus
+    title: Menus
+    identifier: settings
+    pre: <i class="fa-solid fa-map fa-fw"></i>
   - url: /config
     title: Configuration
-    category: Settings
-    identifier: header
-    pre: <i class="fa-solid fa-gear"></i>
+    identifier: settings
+    pre: <i class="fa-solid fa-gear fa-fw"></i>
+plugins:
+  - url: /plugin1
+    title: Music Player
+    identifier: plugins
+    pre: <i class="fa-solid fa-music fa-fw"></i>
+  - url: /plugin2
+    title: Discord API
+    identifier: plugins
+    pre: <i class="fa-solid fa-wand-magic-sparkles fa-fw"></i>
+  - url: /plugin3
+    title: Donate Mug
+    identifier: plugins
+    pre: <i class="fa-solid fa-mug-hot fa-fw"></i>
 ---

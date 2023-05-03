@@ -1,10 +1,10 @@
 <!-- Nav -->
-  <div class="row">
+  <div class="row nav-header">
     
     <div class="col-3 sidebar-logo">
     
       <a href="/" class="logo">
-        <i class="fa-solid fa-dragon fa-2xl"></i> 
+        <i class="fa-solid fa-dragon fa-2xl fa-fw"></i> 
       </a>
     
     </div>
@@ -12,29 +12,55 @@
     <div class="col-9">
       <hgroup>      
         <h4 class="">{{ site.data.global.title }}</h4>
-        <h5 class="">{{ site.data.global.motto }}</h5>      
+        <h5 class="">{{ site.data.global.motto }}</h5>
       </hgroup>
     
     </div>
     
   </div>
   
-  <hr class="hr-sidebar"/>
-  
   <div class="row">
   
     <aside>      
       <nav id="menu">
-        <ul class="links">
-          {% for item in site.menus.header %}
-          <li class="menu-item-{{ loop.index }}">
-            <a href="{{ item.url }}" title="Go to {{ item.title }}">{{ item.pre }} {{ item.title }}</a>
-          {% endfor %}
-        </ul>
-        <!-- <ul class="actions stacked">
-          <li><a href="#" class="button primary fit">Log In</a></li>
-        </ul> -->
-      </nav>      
+        
+        <div class="row menu-spacing">
+          <details open>
+            <summary> Collection Types </summary>
+              <ul class="collections">
+                {% for item in site.menus.collections %}
+                <li class="menu-item{{ loop.index }}">
+                  <a href="{{ item.url }}" title="Go to {{ item.title }}">{{ item.pre }} {{ item.title }}</a>
+                {% endfor %}
+              </ul>
+          </details>
+        </div>
+        
+        <div class="row menu-spacing">
+          <details open>
+            <summary> Plugins </summary>
+              <ul class="plugins">
+                {% for item in site.menus.plugins %}
+                <li class="menu-item{{ loop.index }}">
+                  <a href="{{ item.url }}" title="Go to {{ item.title }}">{{ item.pre }} {{ item.title }}</a>
+                {% endfor %}
+              </ul>
+          </details>
+        </div>
+        
+        <div class="row menu-spacing">
+          <details open>
+            <summary> Settings </summary>
+              <ul class="settings">
+                {% for item in site.menus.settings %}
+                <li class="menu-item{{ loop.index }}">
+                  <a href="{{ item.url }}" title="Go to {{ item.title }}">{{ item.pre }} {{ item.title }}</a>
+                {% endfor %}
+              </ul>
+          </details>
+        </div>
+        
+      </nav>
     </aside>
   
   </div>

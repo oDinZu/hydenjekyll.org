@@ -1,35 +1,92 @@
+/* Layout Spacing */
+
+.container-fluid {
+  padding: 0;
+  height: 100vh;
+}
+
+
 /* Sidebar Navigation */
-
-.h4-sidebar {
-  margin: 0;
-}
-
-.p-sidebar {
-  margin:0;
-  padding:0;
-}
-
-.hr-sidebar {
-  margin-top: 0;
-  margin-bottom: 1em;
-}
-
-.ul-sidebar {
-  list-style: none;
-}
-
-#navlogo {
-  height: 3em;
-  width: auto;
-}
 
 .sidebar-logo {
   padding: .3em;
 }
 
+.vert-expand {
+  min-height: 100vh;
+  height: 100vh;
+}
+
+.row.nav-header {
+  background: #22323e;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #18222b;
+}
+
+.col-3.sidebar-nav {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0 0;
+  background: #1f2d38;
+  border-right: 3px solid #18222b;
+  overflow: auto;
+  max-width: 20em; /* 4K Tv width support */
+  min-width: 12em; /* ipad 810px width support */
+}
+
+.sidebar-nav i {
+  color: #e8e8e8;
+}
+
+#menu a {
+  font-size: 18px;
+}
+
+#menu {
+  margin-left: 10px;
+}
+
+details[open] > summary {
+  margin: 0;
+}
+.menu-spacing {
+  padding-bottom: 1em;
+}
+
+.row ul.collections {
+  margin: 0;
+  width: 100vh;
+}
+
+
+/* Footer */
+
+.copyright {
+  font-size: 14px;
+}
+
+
 /* Utilities */
 
-.center {
-  text-align: center;
- }
 
+/* Pico Fixes */
+
+/* Weird negative margin for aside menu */
+nav ol:last-of-type, nav ul:last-of-type {
+  margin: 0;
+}
+
+nav ol:first-of-type, nav ul:first-of-type {
+  margin: 0;
+}
+
+/* Margin adds up on each group when menu is stacked vertically*/
+details {
+  margin: 0;
+  padding: 0;
+}
+
+details summary::after {
+  width: 1.5rem;
+  background-size: 1.5rem auto;
+}

@@ -25,8 +25,7 @@ group :jekyll_plugins do
 end
 
 group :dev_plugins do
-  gem 'webrick', '~> 1.7' # dep for Jekyll 4.2.2; Ruby 3 doesn't have webrick by default anymore.
-  gem 'jekyll-sass-converter', '~> 2.1'
+  gem 'webrick', '~> 1.7' # dep for Jekyll 4.3.2; Ruby 3 doesn't have webrick by default anymore.
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
