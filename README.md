@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/18726788/236066158-fd14adbb-d033-47aa-96a2-de9f188d44db.png)
+
+
 # Summary
 This web application is the core website for HydenJekyll.org. It is a live JAMstack (Jekyll, API's, Markup) of a website with *micro services* that includes all the bells and whistles for comments, content management systems (CMS), site generators, blog posts, git version management, progressive web applications (PWA), and much more.
 
